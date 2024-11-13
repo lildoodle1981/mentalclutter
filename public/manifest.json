@@ -1,0 +1,21 @@
+{
+  "name": "Mental Clutter Reduction",
+  "short_name": "Mental Clarity",
+  "description": "A simple checklist to help reduce mental clutter and improve mindfulness",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#14b8a6",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
