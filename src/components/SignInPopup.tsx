@@ -91,7 +91,7 @@ export default function SignInPopup({ onComplete }: SignInPopupProps) {
 
         <div className="mt-6 p-4 bg-blue-50 rounded-lg">
           <p className="text-sm text-blue-800">
-            <strong>Pro tip:</strong> Don't forget to bookmark this page for easy access to your mental clarity checklist! 🔖
+            <strong>Pro tip:</strong> Don't forget to bookmark this page for easy access to your mental clarity checklist!! 🔖
           </p>
         </div>
       </div>
