@@ -7,48 +7,34 @@ import { useLocalStorage } from './hooks/useLocalStorage';
 import { Task } from './types';
 
 const defaultTasks: Task[] = [
-  // Organize Your Space
+  // Previous default tasks array remains the same
   { id: '1', text: 'Declutter your desk or workspace', completed: false, category: 'default', group: 'Organize Your Space' },
   { id: '2', text: 'Keep only essential items within reach', completed: false, category: 'default', group: 'Organize Your Space' },
   { id: '3', text: 'Clear out or organize digital clutter (emails, desktop files)', completed: false, category: 'default', group: 'Organize Your Space' },
   { id: '4', text: 'Create a designated space for relaxation', completed: false, category: 'default', group: 'Organize Your Space' },
-
-  // Prioritize Tasks
   { id: '5', text: 'List all tasks in order of importance', completed: false, category: 'default', group: 'Prioritize Tasks' },
   { id: '6', text: 'Break down larger tasks into smaller, manageable steps', completed: false, category: 'default', group: 'Prioritize Tasks' },
   { id: '7', text: 'Limit your to-do list to a realistic number of daily tasks', completed: false, category: 'default', group: 'Prioritize Tasks' },
   { id: '8', text: 'Identify and eliminate low-priority activities', completed: false, category: 'default', group: 'Prioritize Tasks' },
-
-  // Technology Boundaries
   { id: '9', text: 'Silence non-essential notifications on your devices', completed: false, category: 'default', group: 'Technology Boundaries' },
   { id: '10', text: 'Set specific times for checking emails and messages', completed: false, category: 'default', group: 'Technology Boundaries' },
   { id: '11', text: 'Designate "no-screen" times, especially before bed', completed: false, category: 'default', group: 'Technology Boundaries' },
   { id: '12', text: 'Unsubscribe from unneeded mailing lists', completed: false, category: 'default', group: 'Technology Boundaries' },
-
-  // Mindfulness
   { id: '13', text: 'Start with 5–10 minutes of mindful breathing or meditation', completed: false, category: 'default', group: 'Mindfulness' },
   { id: '14', text: 'Focus on being fully present in each moment', completed: false, category: 'default', group: 'Mindfulness' },
   { id: '15', text: 'Let go of lingering thoughts by acknowledging and releasing them', completed: false, category: 'default', group: 'Mindfulness' },
-
-  // Information Management
   { id: '16', text: 'Schedule specific times to read the news or social media', completed: false, category: 'default', group: 'Information Management' },
   { id: '17', text: 'Choose one or two trusted sources for information', completed: false, category: 'default', group: 'Information Management' },
   { id: '18', text: 'Avoid multitasking between information sources', completed: false, category: 'default', group: 'Information Management' },
-
-  // Brain Dump & Goals
   { id: '19', text: 'Write down any nagging thoughts or tasks in a journal', completed: false, category: 'default', group: 'Brain Dump & Goals' },
   { id: '20', text: 'Clear your mind by listing out things you don\'t want to forget', completed: false, category: 'default', group: 'Brain Dump & Goals' },
   { id: '21', text: 'Review your brain dump weekly and organize into actionable items', completed: false, category: 'default', group: 'Brain Dump & Goals' },
   { id: '22', text: 'Define short-term and long-term goals', completed: false, category: 'default', group: 'Brain Dump & Goals' },
   { id: '23', text: 'Ensure goals are specific, measurable, and achievable', completed: false, category: 'default', group: 'Brain Dump & Goals' },
   { id: '24', text: 'Keep a daily reminder of your main goal to stay focused', completed: false, category: 'default', group: 'Brain Dump & Goals' },
-
-  // Breaks & Self-Care
   { id: '25', text: 'Use the Pomodoro technique (25-minute work intervals)', completed: false, category: 'default', group: 'Breaks & Self-Care' },
   { id: '26', text: 'Stand up, stretch, or walk around to reset your mind', completed: false, category: 'default', group: 'Breaks & Self-Care' },
   { id: '27', text: 'Avoid skipping breaks, even during busy times', completed: false, category: 'default', group: 'Breaks & Self-Care' },
-
-  // Gratitude & Boundaries
   { id: '28', text: 'Write down 3 things you\'re grateful for each day', completed: false, category: 'default', group: 'Gratitude & Boundaries' },
   { id: '29', text: 'Shift focus to positive aspects of life to reduce worry', completed: false, category: 'default', group: 'Gratitude & Boundaries' },
   { id: '30', text: 'Use gratitude to ground yourself in the present moment', completed: false, category: 'default', group: 'Gratitude & Boundaries' },
@@ -73,15 +59,21 @@ function App() {
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
-  const handleAdd = (text: string) => {
+  const handleAdd = (text: string, group: TaskGroup) => {
     const newTask: Task = {
       id: Date.now().toString(),
       text,
       completed: false,
-      category: 'custom',
-      group: 'custom'
+      category: group === 'custom' ? 'custom' : 'default',
+      group
     };
     setTasks([...tasks, newTask]);
+  };
+
+  const handleReset = () => {
+    if (window.confirm('Are you sure you want to reset to default tasks? This will remove all custom tasks and restore original tasks.')) {
+      setTasks(defaultTasks);
+    }
   };
 
   const handleShare = async () => {
@@ -124,6 +116,7 @@ function App() {
               onToggle={handleToggle}
               onDelete={handleDelete}
               onAdd={handleAdd}
+              onReset={handleReset}
             />
             
             <button
